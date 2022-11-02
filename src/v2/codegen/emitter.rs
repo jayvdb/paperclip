@@ -1202,6 +1202,7 @@ fn matching_unit_type(
         Some(DataTypeFormat::Float) => Some("f32"),
         Some(DataTypeFormat::Double) => Some("f64"),
         Some(DataTypeFormat::Uuid) => Some("uuid::Uuid"),
+        Some(DataTypeFormat::DateTime) => Some("chrono::DateTime<chrono::Utc>"),
         _ => match type_ {
             Some(DataType::Integer) => Some("i64"),
             Some(DataType::Number) => Some("f64"),

@@ -495,6 +495,8 @@ where
                 f.write_str("impl Iterator<Item = (String, ")?;
                 self.write_builder_ty(&ty[i + 9..ty.len() - 1], req, needs_any, f)?;
                 f.write_str(")>")?;
+            } else if ty[..i].ends_with("chrono::DateTime") {
+                f.write_str("impl Into<chrono::DateTime<chrono::Utc>>")?;
             }
         } else if ApiObject::is_simple_type(ty) {
             write!(f, "impl Into<{}", ty)?;
@@ -552,6 +554,8 @@ where
                 f.write_str("value.map(|(key, value)| (key, ")?;
                 Self::write_value_map(&ty[i + 9..ty.len() - 1], f)?;
                 f.write_str(")).collect::<std::collections::BTreeMap<_, _>>()")?;
+            } else if ty[..i].ends_with("chrono::DateTime") {
+                f.write_str("value")?;
             }
         } else {
             f.write_str("value")?;
