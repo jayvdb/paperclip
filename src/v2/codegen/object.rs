@@ -900,7 +900,7 @@ impl Display for ApiObject {
             return self.write_enum(f);
         }
 
-        f.write_str("#[derive(Debug, Default, Clone, Serialize, Deserialize)]\npub struct ")?;
+        f.write_str("#[derive(Debug, Default, Clone, Serialize, Deserialize, utoipa::ToSchema)]\npub struct ")?;
         f.write_str(&self.name)?;
         if !self.inner.is_enum() && self.fields().iter().any(|f| f.needs_any) {
             ApiObject::write_any_generic(f)?;
