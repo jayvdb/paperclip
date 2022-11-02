@@ -315,6 +315,8 @@ impl<'a> ApiObjectImpl<'a> {
         }
 
         let needs_container = builder.needs_container();
+
+        f.write_str("\n#[allow(clippy::from_over_into)]")?;
         f.write_str("\nimpl")?;
         if builder.needs_any {
             ApiObject::write_any_generic(f)?;
